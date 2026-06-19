@@ -1,40 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-rose: var(--rose);
-  --color-mauve: var(--mauve);
-  --color-cream: var(--cream);
-  --color-burgundy: var(--burgundy);
-  --font-display: "Cormorant Garamond", serif;
-  --font-script: "Pinyon Script", cursive;
-  --font-body: "Quicksand", sans-serif;
-}
 
 :root {
   --radius: 1rem;
@@ -75,14 +43,38 @@
   body {
     background: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-body);
+    font-family: "Quicksand", sans-serif;
     background-image:
       radial-gradient(at 20% 10%, oklch(0.93 0.04 15 / 0.5) 0px, transparent 50%),
       radial-gradient(at 80% 70%, oklch(0.9 0.05 25 / 0.4) 0px, transparent 50%);
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
+    font-family: "Cormorant Garamond", serif;
     letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .text-gradient-rose {
+    background: linear-gradient(135deg, oklch(0.55 0.12 18), oklch(0.7 0.08 25), oklch(0.45 0.1 20));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .heart-float {
+    animation: float-up linear infinite, drift ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .balloon-float {
+    animation: balloon-rise linear infinite, balloon-sway ease-in-out infinite;
+    will-change: transform, opacity, margin-left;
+  }
+
+  .confetti-fall {
+    animation: confetti-fall cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+    will-change: transform, opacity;
   }
 }
 
@@ -100,19 +92,6 @@
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
-.heart-float {
-  position: absolute;
-  animation: float-up linear infinite, drift ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@utility text-gradient-rose {
-  background: linear-gradient(135deg, oklch(0.55 0.12 18), oklch(0.7 0.08 25), oklch(0.45 0.1 20));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 @keyframes balloon-rise {
   0% { transform: translateY(0); opacity: 0; }
   10% { opacity: 1; }
@@ -123,16 +102,7 @@
   0%, 100% { margin-left: -10px; }
   50% { margin-left: 10px; }
 }
-.balloon-float {
-  animation: balloon-rise linear infinite, balloon-sway ease-in-out infinite;
-  will-change: transform, opacity, margin-left;
-}
-
 @keyframes confetti-fall {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(115vh) rotate(720deg); opacity: 0.9; }
-}
-.confetti-fall {
-  animation: confetti-fall cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
-  will-change: transform, opacity;
 }
