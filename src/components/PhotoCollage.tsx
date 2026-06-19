@@ -50,9 +50,6 @@ export function PhotoCollage() {
                 el.style.display = "none";
               }}
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-rose/40 via-cream to-mauve/30 text-mauve/60">
-              <span className="font-script text-2xl">photo {t.i}</span>
-            </div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-burgundy/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           </motion.figure>
         ))}
