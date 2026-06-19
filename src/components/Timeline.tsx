@@ -9,16 +9,16 @@ const events = [
   {
     date: "2 June 2026",
     title: "our first whatsapp",
-    body: "you replied, and somehow my whole day got a little warmer.",
+    body: "I messaged, you replied, and somehow my whole day got a little warmer.",
   },
   {
     date: "14 June 2026",
     title: "a movie, together",
-    body: "different rooms, same screen on instagram — and it still felt like we were sitting side by side.",
+    body: "different rooms, same screen on meet — and it still felt like we were sitting side by side.",
   },
   {
     date: "15 June 2026",
-    title: "the first reel you sent me",
+    title: "the first reel I sent you",
     body: "tiny moment, but i saved it. that's when i knew you were thinking of me too.",
   },
   {
