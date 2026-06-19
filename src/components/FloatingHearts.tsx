@@ -1,6 +1,9 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function FloatingHearts({ count = 28 }: { count?: number }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const hearts = useMemo(
     () =>
       Array.from({ length: count }).map((_, i) => {
@@ -15,6 +18,8 @@ export function FloatingHearts({ count = 28 }: { count?: number }) {
       }),
     [count],
   );
+
+  if (!mounted) return <div className="pointer-events-none absolute inset-0" />;
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
