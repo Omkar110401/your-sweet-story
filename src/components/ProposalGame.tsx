@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
 import { FloatingHearts } from "./FloatingHearts";
 
 const questions = [
@@ -10,13 +11,11 @@ const questions = [
   { q: "will you be mine — today, tomorrow, and every forever after?", yes: "YES — a thousand times yes 💍✨", emoji: "💍", final: true },
 ];
 
-export function ProposalGame({ name, fromName }: { name: string; fromName: string }) {
+export function ProposalGame({ name: _name, fromName: _fromName }: { name: string; fromName: string }) {
   const [step, setStep] = useState(0);
   const [noClicks, setNoClicks] = useState(0);
-  const [done, setDone] = useState(false);
   const noBtnRef = useRef<HTMLButtonElement>(null);
-
-  if (done) return <FinalScreen name={name} fromName={fromName} />;
+  const navigate = useNavigate();
 
   const current = questions[step];
   const yesScale = 1 + Math.min(noClicks, 8) * 0.35 + step * 0.15;
@@ -24,7 +23,7 @@ export function ProposalGame({ name, fromName }: { name: string; fromName: strin
 
   const onYes = () => {
     if (step === questions.length - 1) {
-      setDone(true);
+      navigate({ to: "/forever" });
     } else {
       setStep((s) => s + 1);
       setNoClicks(0);
@@ -108,55 +107,3 @@ export function ProposalGame({ name, fromName }: { name: string; fromName: strin
   );
 }
 
-function FinalScreen({ name, fromName }: { name: string; fromName: string }) {
-  return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
-      <FloatingHearts count={50} />
-
-      <motion.div
-        initial={{ scale: 0, rotate: -20 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.2 }}
-        className="relative z-10 text-8xl md:text-9xl"
-      >
-        💍
-      </motion.div>
-
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 1 }}
-        className="relative z-10 mt-8 font-script text-5xl text-burgundy md:text-7xl"
-      >
-        she said yes
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="relative z-10 mt-6 max-w-xl text-lg text-muted-foreground md:text-xl"
-      >
-        {name}, my softest, smartest, most extraordinary person — i promise to keep choosing you,
-        on the loud days and the quiet ones. forever sounds about right.
-      </motion.p>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="relative z-10 mt-12 font-script text-3xl text-mauve"
-      >
-        yours, always —
-      </motion.p>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.3, duration: 1 }}
-        className="relative z-10 mt-2 font-display text-5xl text-burgundy md:text-6xl"
-      >
-        {fromName}
-      </motion.p>
-    </section>
-  );
-}
