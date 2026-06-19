@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProposeRouteImport } from './routes/propose'
 import { Route as ForeverRouteImport } from './routes/forever'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ProposeRoute = ProposeRouteImport.update({
+  id: '/propose',
+  path: '/propose',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForeverRoute = ForeverRouteImport.update({
   id: '/forever',
   path: '/forever',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/propose': typeof ProposeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/propose': typeof ProposeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/propose': typeof ProposeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forever'
+  fullPaths: '/' | '/forever' | '/propose'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forever'
-  id: '__root__' | '/' | '/forever'
+  to: '/' | '/forever' | '/propose'
+  id: '__root__' | '/' | '/forever' | '/propose'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ForeverRoute: typeof ForeverRoute
+  ProposeRoute: typeof ProposeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/propose': {
+      id: '/propose'
+      path: '/propose'
+      fullPath: '/propose'
+      preLoaderRoute: typeof ProposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forever': {
       id: '/forever'
       path: '/forever'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ForeverRoute: ForeverRoute,
+  ProposeRoute: ProposeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
