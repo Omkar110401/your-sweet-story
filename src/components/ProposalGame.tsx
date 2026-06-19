@@ -11,13 +11,11 @@ const questions = [
   { q: "will you be mine — today, tomorrow, and every forever after?", yes: "YES — a thousand times yes 💍✨", emoji: "💍", final: true },
 ];
 
-export function ProposalGame({ name, fromName }: { name: string; fromName: string }) {
+export function ProposalGame({ name: _name, fromName: _fromName }: { name: string; fromName: string }) {
   const [step, setStep] = useState(0);
   const [noClicks, setNoClicks] = useState(0);
-  const [done, setDone] = useState(false);
   const noBtnRef = useRef<HTMLButtonElement>(null);
-
-  if (done) return <FinalScreen name={name} fromName={fromName} />;
+  const navigate = useNavigate();
 
   const current = questions[step];
   const yesScale = 1 + Math.min(noClicks, 8) * 0.35 + step * 0.15;
@@ -25,7 +23,7 @@ export function ProposalGame({ name, fromName }: { name: string; fromName: strin
 
   const onYes = () => {
     if (step === questions.length - 1) {
-      setDone(true);
+      navigate({ to: "/forever" });
     } else {
       setStep((s) => s + 1);
       setNoClicks(0);
