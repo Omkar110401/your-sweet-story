@@ -16,6 +16,7 @@ const tiles = [
   { i: 12, className: "col-span-1 row-span-1", rotate: 2 },
   { i: 13, className: "col-span-1 row-span-1", rotate: -3 },
   { i: 14, className: "col-span-1 row-span-1", rotate: 1 },
+  { i: 15, className: "col-span-2 row-span-1", rotate: -2 },
 ];
 
 export function PhotoCollage() {
