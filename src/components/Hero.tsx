@@ -22,6 +22,7 @@ export function Hero({ name }: { name: string }) {
         className="mt-6 text-7xl font-light text-gradient-rose md:text-[10rem]"
         style={{ lineHeight: 0.95 }}
       >
+        <span className="mr-4">🌹</span>
         {name}
       </motion.h1>
 
