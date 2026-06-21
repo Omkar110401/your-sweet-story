@@ -18,7 +18,7 @@ export function ProposalGame({ name: _name, fromName: _fromName }: { name: strin
   const navigate = useNavigate();
 
   const current = questions[step];
-  const yesScale = 1 + Math.min(noClicks, 8) * 0.35 + step * 0.15;
+  const yesScale = 1 + Math.min(noClicks, 8) * 0.35;
   const noScale = Math.max(0.4, 1 - noClicks * 0.12);
 
   const onYes = () => {
