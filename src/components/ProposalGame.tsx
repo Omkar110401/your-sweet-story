@@ -73,7 +73,7 @@ export function ProposalGame({ name: _name, fromName: _fromName }: { name: strin
             onClick={onYes}
             animate={{ scale: yesScale }}
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
-            className="rounded-full bg-gradient-to-br from-burgundy via-primary to-mauve px-10 py-5 text-lg font-medium text-primary-foreground shadow-[0_15px_40px_-10px_oklch(0.42_0.09_20/0.55)] transition hover:brightness-110"
+            className="relative z-20 rounded-full bg-gradient-to-br from-burgundy via-primary to-mauve px-10 py-5 text-lg font-medium text-primary-foreground shadow-[0_15px_40px_-10px_oklch(0.42_0.09_20/0.55)] transition hover:brightness-110"
           >
             {current.yes}
           </motion.button>
@@ -83,7 +83,7 @@ export function ProposalGame({ name: _name, fromName: _fromName }: { name: strin
               ref={noBtnRef}
               onClick={onNo}
               style={{ transform: `scale(${noScale})`, transition: "transform 0.3s ease" }}
-              className="rounded-full border border-rose bg-card px-6 py-3 text-sm text-muted-foreground hover:bg-rose/30"
+              className="relative z-10 rounded-full border border-rose bg-card px-6 py-3 text-sm text-muted-foreground hover:bg-rose/30"
             >
               no
             </button>

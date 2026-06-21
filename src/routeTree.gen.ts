@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProposeRouteImport } from './routes/propose'
+import { Route as LetterRouteImport } from './routes/letter'
 import { Route as ForeverRouteImport } from './routes/forever'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ProposeRoute = ProposeRouteImport.update({
   id: '/propose',
   path: '/propose',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LetterRoute = LetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForeverRoute = ForeverRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/letter': typeof LetterRoute
   '/propose': typeof ProposeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/letter': typeof LetterRoute
   '/propose': typeof ProposeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/forever': typeof ForeverRoute
+  '/letter': typeof LetterRoute
   '/propose': typeof ProposeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forever' | '/propose'
+  fullPaths: '/' | '/forever' | '/letter' | '/propose'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forever' | '/propose'
-  id: '__root__' | '/' | '/forever' | '/propose'
+  to: '/' | '/forever' | '/letter' | '/propose'
+  id: '__root__' | '/' | '/forever' | '/letter' | '/propose'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ForeverRoute: typeof ForeverRoute
+  LetterRoute: typeof LetterRoute
   ProposeRoute: typeof ProposeRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/propose'
       fullPath: '/propose'
       preLoaderRoute: typeof ProposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/letter': {
+      id: '/letter'
+      path: '/letter'
+      fullPath: '/letter'
+      preLoaderRoute: typeof LetterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forever': {
@@ -88,18 +105,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ForeverRoute: ForeverRoute,
+  LetterRoute: LetterRoute,
   ProposeRoute: ProposeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

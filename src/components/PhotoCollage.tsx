@@ -15,6 +15,7 @@ const tiles = [
   { i: 11, className: "col-span-2 row-span-2", rotate: -2 },
   { i: 12, className: "col-span-1 row-span-1", rotate: 2 },
   { i: 13, className: "col-span-1 row-span-1", rotate: -3 },
+  { i: 14, className: "col-span-1 row-span-1", rotate: 1 },
 ];
 
 export function PhotoCollage() {
@@ -39,12 +40,14 @@ export function PhotoCollage() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: idx * 0.05 }}
             whileHover={{ rotate: 0, scale: 1.04, zIndex: 10 }}
-            className={`group relative overflow-hidden rounded-2xl bg-card shadow-[0_10px_40px_-10px_oklch(0.42_0.09_20/0.25)] ring-1 ring-rose/40 ${t.className}`}
+            className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-rose/20 to-mauve/20 shadow-[0_10px_40px_-10px_oklch(0.42_0.09_20/0.25)] ring-1 ring-rose/40 ${t.className}`}
           >
             <img
               src={`/photos/${t.i}.png`}
               alt={`memory ${t.i}`}
               loading="lazy"
+              decoding="async"
+              fetchPriority={idx < 4 ? "high" : "low"}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
                 const el = e.currentTarget;

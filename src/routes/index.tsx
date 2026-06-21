@@ -39,7 +39,7 @@ function Index() {
           </p>
 
           <Link
-            to="/propose"
+            to="/letter"
             className="mt-10 inline-block rounded-full bg-gradient-to-br from-burgundy via-primary to-mauve px-10 py-5 text-lg font-medium text-primary-foreground shadow-[0_15px_40px_-10px_oklch(0.42_0.09_20/0.55)] transition hover:brightness-110"
           >
             open my letter 💌
